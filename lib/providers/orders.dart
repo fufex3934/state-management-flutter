@@ -2,7 +2,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shapp/providers/cart.dart';
 
-import '../widgets/cart_item.dart';
 
 class OrderItem  {
   final String id;
