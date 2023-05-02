@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shapp/screens/cart_screen.dart';
-import 'package:shapp/widgets/app_drawer.dart';
 
+import '../widgets/app_drawer.dart';
 import '../widgets/products_grid.dart';
 import '../widgets/badge.dart';
 import '../providers/cart.dart';
+import './cart_screen.dart';
 
 enum FilterOptions {
   Favorites,
@@ -13,8 +13,6 @@ enum FilterOptions {
 }
 
 class ProductsOverviewScreen extends StatefulWidget {
-  const ProductsOverviewScreen({super.key});
-
   @override
   _ProductsOverviewScreenState createState() => _ProductsOverviewScreenState();
 }
@@ -55,24 +53,21 @@ class _ProductsOverviewScreenState extends State<ProductsOverviewScreen> {
           Consumer<Cart>(
             builder: (_, cart, ch) => Badges(
                   value: cart.itemCount.toString(),
-                 color: Colors.red,
-                  child: ch,
+              color: Colors.red,
+                  child: ch as Widget,
                 ),
             child: IconButton(
               icon: const Icon(
                 Icons.shopping_cart,
               ),
               onPressed: () {
-                Navigator.pushNamed(
-                    context,
-                    CartScreen.routName
-                );
+                Navigator.of(context).pushNamed(CartScreen.routeName);
               },
             ),
           ),
         ],
       ),
-      drawer: const AppDrawer(),
+      drawer: AppDrawer(),
       body: ProductsGrid(_showOnlyFavorites),
     );
   }

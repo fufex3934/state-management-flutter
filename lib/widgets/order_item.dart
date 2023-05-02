@@ -5,22 +5,22 @@ import 'package:intl/intl.dart';
 
 import '../providers/orders.dart' as ord;
 
-class OrderItemsWidget extends StatefulWidget {
+class OrderItem extends StatefulWidget {
   final ord.OrderItem order;
 
-  OrderItemsWidget(this.order);
+  OrderItem(this.order);
 
   @override
-  _OrderItemsWidgetState createState() => _OrderItemsWidgetState();
+  _OrderItemState createState() => _OrderItemState();
 }
 
-class _OrderItemsWidgetState extends State<OrderItemsWidget> {
+class _OrderItemState extends State<OrderItem> {
   var _expanded = false;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.all(10),
+      margin: EdgeInsets.all(10),
       child: Column(
         children: <Widget>[
           ListTile(
@@ -39,31 +39,31 @@ class _OrderItemsWidgetState extends State<OrderItemsWidget> {
           ),
           if (_expanded)
             Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 4),
               height: min(widget.order.products.length * 20.0 + 10, 100),
               child: ListView(
                 children: widget.order.products
                     .map(
                       (prod) => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        prod.title,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        '${prod.quantity}x \$${prod.price}',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey,
-                        ),
-                      )
-                    ],
-                  ),
-                )
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Text(
+                                prod.title,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                '${prod.quantity}x \$${prod.price}',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.grey,
+                                ),
+                              )
+                            ],
+                          ),
+                    )
                     .toList(),
               ),
             )

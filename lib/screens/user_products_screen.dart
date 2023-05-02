@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shapp/widgets/app_drawer.dart';
-import 'package:shapp/widgets/edit_product_screen.dart';
-import 'package:shapp/widgets/user_product_item.dart';
-import '../providers/products.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/products.dart';
+import '../widgets/user_product_item.dart';
+import '../widgets/app_drawer.dart';
+import './edit_product_screen.dart';
+
 class UserProductsScreen extends StatelessWidget {
-  static const routName = "user/products";
-  const UserProductsScreen({Key? key}) : super(key: key);
+  static const routeName = '/user-products';
 
   @override
   Widget build(BuildContext context) {
@@ -14,38 +15,31 @@ class UserProductsScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Products'),
-        actions: [
+        actions: <Widget>[
           IconButton(
-              onPressed: (){
-                Navigator.pushNamed(
-                    context,
-                    EditProductScreen.routName
-                );
-              },
-              icon: const Icon(
-                Icons.add
-              )
-          )
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).pushNamed(EditProductScreen.routeName);
+            },
+          ),
         ],
       ),
-      drawer: const AppDrawer(),
+      drawer: AppDrawer(),
       body: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: EdgeInsets.all(8),
         child: ListView.builder(
-            itemBuilder: (context,index){
-              return Column(
+          itemCount: productsData.items.length,
+          itemBuilder: (_, i) => Column(
                 children: [
                   UserProductItem(
-                    productsData.items[index].title,
-                    productsData.items[index].imageUrl
+                    productsData.items[i].id,
+                    productsData.items[i].title,
+                    productsData.items[i].imageUrl,
                   ),
-                  const Divider()
+                  Divider(),
                 ],
-              );
-            },
-          itemCount: productsData.items.length,
+              ),
         ),
-        
       ),
     );
   }

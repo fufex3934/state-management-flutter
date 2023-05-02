@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Badges extends StatelessWidget {
-  const Badges({super.key,
+  const Badges({
+    Key? key,
     required this.child,
     required this.value,
     required this.color,
-  }) ;
+  }) : super(key: key);
 
-  final Widget? child;
+  final Widget child;
   final String value;
   final Color color;
 
@@ -16,7 +17,7 @@ class Badges extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        child as Widget,
+        child,
         Positioned(
           right: 8,
           top: 8,
@@ -25,7 +26,7 @@ class Badges extends StatelessWidget {
             // color: Theme.of(context).accentColor,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
-              color: color ?? Theme.of(context).colorScheme.secondary,
+              color: color != null ? color : Theme.of(context).colorScheme.secondary,
             ),
             constraints: const BoxConstraints(
               minWidth: 16,
